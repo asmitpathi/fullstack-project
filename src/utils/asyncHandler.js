@@ -11,7 +11,7 @@ export {asyncHandler}
 
 
 
-//This is another way
+//This is another way(different syntax)
 // const asynHandler= (requestHandler) => async (req, res, next) => {
 //     try{
 //         await requestHandler(req, res, next)

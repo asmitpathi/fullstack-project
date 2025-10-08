@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2"
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2"  //allows to use mongodb aggregation pipelines
 
 const videoSchema= new mongoose.Schema({
     videoFile: {

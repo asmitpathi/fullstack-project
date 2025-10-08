@@ -1,4 +1,4 @@
-class ApiError extends Error{    //Erros is default provided
+class ApiError extends Error{    //Error is a default class in JS
     constructor(
         statuscode,
         message= "Something went wrong",

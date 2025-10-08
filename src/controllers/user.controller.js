@@ -11,8 +11,8 @@ const generateAccessAndRefreshTokens= async(userId) => {
         const user= await User.findById(userId)  //find user based on userId
         const accessToken= user.generateAccessToken()  //generate access token
         const refreshToken= user.generateRefreshToken()  //generate refresh token
-        user.refreshToken= refreshToken
-        user.save({validateBeforeSave: false})  //save refresh token in database
+        user.refreshToken= refreshToken  //access token is given to user and refresh token is saved in database
+        user.save({validateBeforeSave: false})  //save refresh token in database  //no validation required before save
         return {accessToken, refreshToken}
     } catch (error) {
         throw new ApiError(500, "Something went wrong while generating access and refresh tokens")
@@ -24,13 +24,14 @@ const registerUser= asyncHandler(async(req, res) => {
     const { fullname, username, email, password} = req.body
     //console.log("email: ", email)
     
-    //validation_ if any field is empty
+    //validation: if any field is empty
     if(
-        [fullname, username, email, password].some((field) =>   //returns true if any element of array is empty 
+        [fullname, username, email, password].some((field) =>   //returns true if one or more elements of array is empty 
         field?.trim()==="")    
     ){
         throw new ApiError(400, "All fields are required")
     }
+    //this can also be done by checking all fields individually
 
     //check if user already exists
     const existedUser= await User.findOne({
@@ -41,8 +42,9 @@ const registerUser= asyncHandler(async(req, res) => {
     }
 
     //upload images and avatars and check for avatar
-    const avatarLocalPath= req.files?.avatar[0]?.path   //? means optional
-    
+    const avatarLocalPath= req.files?.avatar[0]?.path   //local path since it is on our server but not on cloudinary yet
+    // ? means optional
+
     let coverImageLocalPath;
     if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
         coverImageLocalPath = req.files.coverImage[0].path
@@ -52,7 +54,7 @@ const registerUser= asyncHandler(async(req, res) => {
         throw new ApiError(400, "Avatar file is required")
     }
 
-    //upload images and avatars to cloudinary
+    //upload images and avatars to cloudinary and check again for avatar
     const avatar= await uploadOnCloudinary(avatarLocalPath)
     const coverImage= await uploadOnCloudinary(coverImageLocalPath)
     //check avatar since it is a required field
@@ -72,7 +74,7 @@ const registerUser= asyncHandler(async(req, res) => {
 
     //remove password and refresh token field from response 
     const createdUser= await User.findById(user._id).select(
-        "-password -refreshToken"   //these are not required
+        "-password -refreshToken"   //these fields are not required
     )
 
     //check for user creation
@@ -81,7 +83,8 @@ const registerUser= asyncHandler(async(req, res) => {
     }
 
     //return response
-    return res.status(201).json(
+    return res.status(200)     //sets the HTTP status code for the response
+    .json(          //sends the response back to the client in JSON format.
         new ApiResponse(200, createdUser, "User registered successfully")
     )
 })
@@ -89,14 +92,14 @@ const registerUser= asyncHandler(async(req, res) => {
 const loginUser= asyncHandler( async (req, res) => {
     // retrieve data from req body
     const {email, username, password}= req.body
-    console.log(email)
+    //console.log(email)
     
     //if both username and email not there 
     if(!username && !email){
         throw new ApiError(400, "Username or email is required")
     }
 
-    //if username or email there
+    //if either username or email there
     const user= await User.findOne({
         $or: [{username}, {email}]   //mongodb operator
     })
@@ -126,7 +129,7 @@ const loginUser= asyncHandler( async (req, res) => {
     return res.status(200)
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
-    .json(
+    .json(            //response in JSON format
         new ApiResponse(
             200,
             {
@@ -138,17 +141,19 @@ const loginUser= asyncHandler( async (req, res) => {
 })
 
 const logoutUser= asyncHandler( async(req, res) => {
+    //remove refresh token from the database
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $unset: {
-                refreshToken: 1 //this removes the field from the document
+            $unset: {   //this removes the field from the document
+                refreshToken: 1 
             }
         },
         {
             new: true
         }
     )
+
     //cookies
     const options= {
         httpOnly: true,   //cookies can be modified by anyone by default but httpOnly: true ensures that the cookie can be modified by the server only
@@ -158,9 +163,10 @@ const logoutUser= asyncHandler( async(req, res) => {
     return res.status(200)
     .clearCookie("accessToken", options)
     .clearCookie("refreshToken", options)
-    .json( new ApiResponse(200, {}, "User logged out"))
+    .json(new ApiResponse(200, {}, "User logged out"))
 })
 
+//to refresh token at an endpoint
 const refreshAccessToken= asyncHandler( async(req, res) => {
     const incomingRefreshToken= req.cookies.refreshToken || req.body.refreshToken
     
@@ -169,7 +175,7 @@ const refreshAccessToken= asyncHandler( async(req, res) => {
     }
     
     try {
-        const decodedToken= jwt.verify(
+        const decodedToken= jwt.verify(         //decoded information
             incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET
         )
     
@@ -325,14 +331,14 @@ const getUserChannelProfile= asyncHandler( async(req, res) => {
             }
         },
         {
-            $addFields: {     //adds additional fields subscribers and subscribed
-                subscriberCount: {
-                    $size: "$subscribers"        //returns the number of subscribers
+            $addFields: {     //adds additional fields subscribers and subscribedTo in the user document
+                subscriberCount: {        //returns the number of subscribers
+                    $size: "$subscribers"       //use $ because it is a field 
                 },
-                channelsSubscribedToCount: {
-                    $size: "$subscribedTo"        //returns the number of subscribed
+                channelsSubscribedToCount: {     //returns the number of subscribed
+                    $size: "$subscribedTo"        //use $ because it is a field 
                 },
-                isSubscribed: {
+                isSubscribed: {             //whether subscribed or not
                     $cond: {
                         if: {$in: [req.user?._id, "$subscribers.subscriber"]},
                         then: true,
@@ -342,7 +348,7 @@ const getUserChannelProfile= asyncHandler( async(req, res) => {
             }
         },
         {
-            $project: {    //1- include, 0- exclude
+            $project: {    //projection (1- include, 0- exclude)
                 fullname: 1,
                 username: 1,
                 subscriberCount: 1,
@@ -377,7 +383,7 @@ const getWatchHistory= asyncHandler( async(req, res) => {
                 localField: "watchHistory",
                 foreignField: "_id",
                 as: "watchHistory",
-                pipeline: [     //nested lookup
+                pipeline: [     //nested pipeline
                     {
                         $lookup: {
                             from: "users",
@@ -398,7 +404,7 @@ const getWatchHistory= asyncHandler( async(req, res) => {
                     {
                         $addFields: {
                             owner: {
-                                $first: "$owner" 
+                                $first: "$owner"  //$first takes the first element from the owner array which makes owner a single object instead of [{...}].
                             }
                         }
                     }
