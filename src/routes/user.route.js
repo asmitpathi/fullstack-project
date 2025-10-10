@@ -13,10 +13,10 @@ import { loginUser,
 import {upload} from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/auth.middleware.js"
 
-const router= Router()
+const router= Router()   //creates a modular, mountable route handler
 
 router.route("/register").post(
-    upload.fields([
+    upload.fields([    //fields() is used because there are multiple files with different field names
         {
             name: "avatar",
             maxCount: 1

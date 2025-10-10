@@ -1,41 +1,42 @@
-import mongoose from "mongoose"
-import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2"  //allows to use mongodb aggregation pipelines
+import mongoose from "mongoose";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
-const videoSchema= new mongoose.Schema({
-    videoFile: {
-        type: String,  //cloudinary url
-        required: true
-    },
-    thumbnail: {
-        type: String,  //cloudinary url
-        required: true
-    },
-    title: {
-        type: String,  
-        required: true
-    },
-    description: {
-        type: String,  //cloudinary url 
-        required: true
-    },
-    duration: {
-        type: Number,
-        required: true
-    },
-    views: {
-        type: Number,
-        default: 0
-    },
-    isPublished: {
-        type: Boolean,
-        default: true
-    },
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }
-}, {timestamps: true})
+const videoSchema = new mongoose.Schema({
+  videoFile: {
+    url: { type: String, required: true },
+    public_id: { type: String, required: true },
+  },
+  thumbnail: {
+    url: { type: String, required: true },
+    public_id: { type: String, required: true },
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  views: {
+    type: Number,
+    default: 0,
+  },
+  isPublished: {
+    type: Boolean,
+    default: true,
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+}, { timestamps: true });
 
-videoSchema.plugin(mongooseAggregatePaginate)
+videoSchema.plugin(mongooseAggregatePaginate);
 
-export const Video= mongoose.model("Video", videoSchema)
+export const Video = mongoose.model("Video", videoSchema);
