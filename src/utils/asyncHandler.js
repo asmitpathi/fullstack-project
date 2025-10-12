@@ -1,3 +1,5 @@
+//If any error occurs in a function(wrapped in asynchnadler), it will be automatically passed to the error middleware.
+
 const asyncHandler= (requestHandler)=>{
     return (req, res, next) => {
         Promise.resolve(requestHandler(req, res, next))
