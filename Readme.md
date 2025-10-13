@@ -9,7 +9,6 @@ Built with **Node.js**, **Express.js**, and **MongoDB**, this project serves as 
 
 ## 📁 Project Structure
 
-```text
 root/
 ├── public/               # Static assets (uploaded videos, etc.)
 │   └── temp/
@@ -30,59 +29,71 @@ root/
 
 ---
 
-🚀 Features
+## 🚀 Features
 
-✅ JWT-based authentication
-✅ Video CRUD + owner info via aggregation
-✅ Commenting system with pagination
-✅ Tweet system (post, edit, delete)
-✅ Likes system (for videos & comments)
-✅ Subscriptions (toggle-based)
-✅ Playlist management (create, update, delete, fetch)
-✅ Channel dashboard stats (views, likes, videos, subs)
-✅ All routes tested via Postman
+✅ JWT-based authentication  
+✅ Video CRUD + owner info via aggregation  
+✅ Commenting system with pagination  
+✅ Tweet system (post, edit, delete)  
+✅ Likes system (for videos & comments)  
+✅ Subscriptions (toggle-based)  
+✅ Playlist management (create, update, delete, fetch)  
+✅ Channel dashboard stats (views, likes, videos, subs)  
+✅ All routes tested via Postman  
 
-🧰 Tech Stack
+---
 
-Backend: Node.js, Express.js
-Database: MongoDB + Mongoose
-Auth: JWT (Access Tokens)
-Environment: ES Modules (type: "module")
-Others:
-mongoose-aggregate-paginate-v2, dotenv, custom error handling, asyncHandler
+## 🧰 Tech Stack
 
-🔐 Environment Variables
+Backend: Node.js, Express.js  
+Database: MongoDB + Mongoose  
+Auth: JWT (Access Tokens)  
+Environment: ES Modules (type: "module")  
+Others:  
+mongoose-aggregate-paginate-v2, dotenv, custom error handling, asyncHandler  
 
-Create a .env file in the root folder and add the following:
+---
 
-MONGO_URI=your_mongo_url
-PORT=your_port
-CORS_ORIGIN=*
-ACCESS_TOKEN_SECRET=your_access_token
-ACCESS_TOKEN_EXPIRY=your_expiry_time
-REFRESH_TOKEN_SECRET=your_refresh_token
-REFRESH_TOKEN_EXPIRY=your_expiry_time
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+## 🔐 Environment Variables
 
-🛠️ Installation & Run
+Create a .env file in the root folder and add the following:  
 
-git clone https://github.com/your-username/twitube.git
-cd twitube
-npm install
-npm run dev
+MONGO_URI=your_mongo_url  
+PORT=your_port  
+CORS_ORIGIN=*  
+ACCESS_TOKEN_SECRET=your_access_token  
+ACCESS_TOKEN_EXPIRY=your_expiry_time  
+REFRESH_TOKEN_SECRET=your_refresh_token  
+REFRESH_TOKEN_EXPIRY=your_expiry_time  
+CLOUDINARY_CLOUD_NAME=your_cloud_name  
+CLOUDINARY_API_KEY=your_api_key  
+CLOUDINARY_API_SECRET=your_api_secret  
 
-📮 API Testing
+---
 
-All endpoints have been tested with Postman.
-Each controller provides clear JSON responses along with descriptive error messages.
+## 🛠️ Installation & Run
 
-📌 Author
+git clone https://github.com/your-username/twitube.git  
+cd twitube  
+npm install  
+npm run dev  
 
-Asmit
-GitHub: https://github.com/asmitpathi
+---
 
-🙏 Acknowledgment
+## 📮 API Testing
 
-Thanks to Hitesh Choudhary sir for his incredible Chai aur Backend series, which served as the foundation for this project.
+All endpoints have been tested with Postman.  
+Each controller provides clear JSON responses along with descriptive error messages.  
+
+---
+
+## 📌 Author
+
+Asmit  
+GitHub: https://github.com/asmitpathi  
+
+---
+
+## 🙏 Acknowledgment
+
+Thanks to Hitesh Choudhary sir for his incredible Chai aur Backend series, which served as the foundation for this project.  
