@@ -1,11 +1,15 @@
-📦 TwiTube
+# 📦 TwiTube
 
-TwiTube is a backend server application inspired by the Chai aur Backend series by Hitesh Choudhary.
-It brings together features of both Twitter and YouTube — enabling authentication, video uploads, playlists, tweets, likes, subscriptions, and a detailed channel dashboard.
+TwiTube is a backend server application inspired by the **Chai aur Backend** series by *Hitesh Choudhary*.  
+It brings together features of both **Twitter** and **YouTube** — enabling authentication, video uploads, playlists, tweets, likes, subscriptions, and a detailed channel dashboard.
 
-Built with Node.js, Express.js, and MongoDB, this project is a complete backend solution for a social + video platform.
+Built with **Node.js**, **Express.js**, and **MongoDB**, this project serves as a complete backend solution for a social + video platform.
 
-📁 Project Structure
+---
+
+## 📁 Project Structure
+
+```text
 root/
 ├── public/               # Static assets (uploaded videos, etc.)
 │   └── temp/
