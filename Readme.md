@@ -28,31 +28,41 @@ root/
 ├── package.json
 └── README.md
 
-🚀 Features
+---
 
-✅ JWT-based authentication
-✅ Video CRUD + owner info via aggregation
-✅ Commenting system with pagination
-✅ Tweet system (post, edit, delete)
-✅ Likes system (for videos & comments)
-✅ Subscriptions (toggle-based)
-✅ Playlist management (create, update, delete, fetch)
-✅ Channel dashboard stats (views, likes, videos, subs)
-✅ All routes tested via Postman
+## 🚀 Features
 
-🧰 Tech Stack
+- ✅ **JWT-based authentication**  
+- ✅ **Video CRUD** + owner info via aggregation  
+- ✅ **Commenting system** with pagination  
+- ✅ **Tweet system** (post, edit, delete)  
+- ✅ **Likes system** (for videos & comments)  
+- ✅ **Subscriptions** (toggle-based)  
+- ✅ **Playlist management** (create, update, delete, fetch)  
+- ✅ **Channel dashboard stats** (views, likes, videos, subs)  
+- ✅ **All routes tested via Postman**
 
-Backend: Node.js, Express.js
-Database: MongoDB + Mongoose
-Auth: JWT (Access Tokens)
-Environment: ES Modules (type: "module")
-Others:
-mongoose-aggregate-paginate-v2, dotenv, custom error handling, asyncHandler
+---
 
-🔐 Environment Variables
+## 🧰 Tech Stack
 
-Create a .env file in the root folder and add the following:
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB + Mongoose  
+**Authentication:** JWT (Access Tokens)  
+**Environment:** ES Modules (`type: "module"`)  
+**Others:**  
+- mongoose-aggregate-paginate-v2  
+- dotenv  
+- custom error handling  
+- asyncHandler  
 
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the root folder and add the following:
+
+```env
 MONGO_URI=your_mongo_url
 PORT=your_port
 CORS_ORIGIN=*
@@ -63,24 +73,3 @@ REFRESH_TOKEN_EXPIRY=your_expiry_time
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
-
-🛠️ Installation & Run
-
-git clone https://github.com/your-username/twitube.git
-cd twitube
-npm install
-npm run dev
-
-📮 API Testing
-
-All endpoints have been tested with Postman.
-Each controller provides clear JSON responses along with descriptive error messages.
-
-📌 Author
-
-Asmit
-GitHub: https://github.com/asmitpathi
-
-🙏 Acknowledgment
-
-Thanks to Hitesh Choudhary sir for his incredible Chai aur Backend series, which served as the foundation for this project.
