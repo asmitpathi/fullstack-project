@@ -30,7 +30,7 @@ root/
 
 ---
 
-## 🚀 Features
+### 🚀 Features
 
 - ✅ **JWT-based authentication**  
 - ✅ **Video CRUD** + owner info via aggregation  
