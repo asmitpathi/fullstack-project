@@ -27,6 +27,7 @@ root/
 ├── .gitignore
 ├── package.json
 └── README.md
+```
 
 ---
 
