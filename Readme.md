@@ -9,6 +9,7 @@ Built with **Node.js**, **Express.js**, and **MongoDB**, this project serves as 
 
 ## 📁 Project Structure
 
+```text
 root/
 ├── public/               # Static assets (uploaded videos, etc.)
 │   └── temp/
